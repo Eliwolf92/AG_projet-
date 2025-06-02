@@ -12,6 +12,27 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+    <header>
+        <h1>Les petits artistes de Garches</h1>
+        <button id="Sign_Up">Sign Up</button>
+        <ul>
+            <li><a href="AG_index.html">Accueil</a></li>
+            <li><a href="projet.html">Catégories</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="about.html">À propos</a></li>
+        </ul>
+
+
+    </header>
+
+            <main>
+                {% block content %}
+                {% endblock %}
+            </main>
+
+            <footer>
+                <p>&copy; 2023 Les petits artistes de Garches</p>
+            </footer>
+    
     </body>
 </html>
