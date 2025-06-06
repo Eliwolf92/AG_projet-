@@ -11,7 +11,7 @@ final class ArtistePageController extends AbstractController
     #[Route('/artiste/page', name: 'app_artiste_page')]
     public function index(): Response
     {
-        return $this->render('artiste_page/index.html.twig', [
+        return $this->render('Pages/Artiste.html.twig', [
             'controller_name' => 'ArtistePageController',
         ]);
     }

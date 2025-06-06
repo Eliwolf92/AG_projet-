@@ -6,16 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-final class MainPageController extends AbstractController
-{   //https://127.0.0.1:8000/main
-    #[Route('/main', name: 'app_main_page')]
+final class ForgotpassController extends AbstractController
+{
+    #[Route('/forgotpass', name: 'app_forgotpass')]
     public function index(): Response
     {
-
-        return $this->render('Pages/Main.html.twig', [
-            'controller_name' => 'MainPageController',
+        return $this->render('Pages_Connexion_Inscription/forgotpass.html.twig', [
+            'controller_name' => 'ForgotpassController',
         ]);
     }
-
-
 }

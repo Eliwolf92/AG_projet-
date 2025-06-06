@@ -8,8 +8,8 @@ div, h1 ,h2 ,h3 ,ul ,li ,p ,a ,main ,section ,header ,footer,body{
 }
 
  header{
-    background-color: #1aa191;
-    color: white;
+    background-color: #c3c3c3;
+    color: #000000;
     padding: 10px 20px;
     text-align: center;
  }
@@ -26,19 +26,19 @@ div, h1 ,h2 ,h3 ,ul ,li ,p ,a ,main ,section ,header ,footer,body{
     font-size: x-large;
  }
 
-a {
+#nav a {
   text-decoration: none;
-  color: #ffffff;
+  color: #000000;
   border-bottom: 2px solid transparent;
   transition: border-color 0.5s ease-in-out, color 0.3s ease-in-out;
 }
 
-a:hover {
-  color: #d7d7d7;
+#nav a:hover {
+  color: #bbbbbb;
   border-bottom-color: #f0f0f0;
 }
 
-h1{
+#Title_website{
     text-align: center;
     margin-top: 20px;
     font-size: 4em;
@@ -56,4 +56,16 @@ h1{
     position: absolute;
     top: 3%;
     right: 5%;
+}
+
+ #Sign_Up a {
+  text-decoration: none;
+  color: #ffffff;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.5s ease-in-out, color 0.3s ease-in-out;
+ }
+
+ #Sign_Up a:hover {
+  color: #d7d7d7;
+  border-bottom-color: #f0f0f0;
 }

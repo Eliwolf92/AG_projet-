@@ -15,7 +15,7 @@ class Commande
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'commandes')]
-    private ?Users $User_id = null;
+    private ?User $User_id = null;
 
     #[ORM\ManyToOne(inversedBy: 'commandes')]
     private ?Art $Art_id = null;
@@ -28,12 +28,12 @@ class Commande
         return $this->id;
     }
 
-    public function getUserId(): ?Users
+    public function getUserId(): ?User
     {
         return $this->User_id;
     }
 
-    public function setUserId(?Users $User_id): static
+    public function setUserId(?User $User_id): static
     {
         $this->User_id = $User_id;
 

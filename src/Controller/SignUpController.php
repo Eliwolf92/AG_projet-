@@ -6,16 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-final class MainPageController extends AbstractController
-{   //https://127.0.0.1:8000/main
-    #[Route('/main', name: 'app_main_page')]
+final class SignUpController extends AbstractController
+{
+    #[Route('sign/up', name: 'app_sign_up')]
     public function index(): Response
     {
-
-        return $this->render('Pages/Main.html.twig', [
-            'controller_name' => 'MainPageController',
+        return $this->render('Pages_Connexion_Inscription/Sign_Up.html.twig', [
+            'controller_name' => 'SignUpController',
         ]);
     }
-
-
 }

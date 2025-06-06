@@ -13,7 +13,7 @@ class Artistes
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id_artiste = null;
+    private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
@@ -44,7 +44,7 @@ class Artistes
 
     public function getId(): ?int
     {
-        return $this->id_artiste;
+        return $this->id;
     }
 
     public function getName(): ?string
