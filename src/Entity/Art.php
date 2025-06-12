@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ArtRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -17,31 +15,17 @@ class Art
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    private ?string $Name = null;
 
     #[ORM\Column(type: Types::BLOB)]
-    private $img = null;
+    private $Img = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    /**
-     * @var Collection<int, ArtService>
-     */
-    #[ORM\OneToMany(targetEntity: ArtService::class, mappedBy: 'Art_id')]
-    private Collection $artServices;
-
-    /**
-     * @var Collection<int, Commande>
-     */
-    #[ORM\OneToMany(targetEntity: Commande::class, mappedBy: 'Art_id')]
-    private Collection $commandes;
-
-    public function __construct()
-    {
-        $this->artServices = new ArrayCollection();
-        $this->commandes = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(inversedBy: 'arts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $artiste = null;
 
     public function getId(): ?int
     {
@@ -50,24 +34,24 @@ class Art
 
     public function getName(): ?string
     {
-        return $this->name;
+        return $this->Name;
     }
 
-    public function setName(string $name): static
+    public function setName(string $Name): static
     {
-        $this->name = $name;
+        $this->Name = $Name;
 
         return $this;
     }
 
     public function getImg()
     {
-        return $this->img;
+        return $this->Img;
     }
 
-    public function setImg($img): static
+    public function setImg($Img): static
     {
-        $this->img = $img;
+        $this->Img = $Img;
 
         return $this;
     }
@@ -77,69 +61,21 @@ class Art
         return $this->description;
     }
 
-    public function setDescription(string $description): static
+    public function setDescription(?string $description): static
     {
         $this->description = $description;
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, ArtService>
-     */
-    public function getArtServices(): Collection
+    public function getArtiste(): ?User
     {
-        return $this->artServices;
+        return $this->artiste;
     }
 
-    public function addArtService(ArtService $artService): static
+    public function setArtiste(?User $artiste): static
     {
-        if (!$this->artServices->contains($artService)) {
-            $this->artServices->add($artService);
-            $artService->setArtId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeArtService(ArtService $artService): static
-    {
-        if ($this->artServices->removeElement($artService)) {
-            // set the owning side to null (unless already changed)
-            if ($artService->getArtId() === $this) {
-                $artService->setArtId(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Commande>
-     */
-    public function getCommandes(): Collection
-    {
-        return $this->commandes;
-    }
-
-    public function addCommande(Commande $commande): static
-    {
-        if (!$this->commandes->contains($commande)) {
-            $this->commandes->add($commande);
-            $commande->setArtId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommande(Commande $commande): static
-    {
-        if ($this->commandes->removeElement($commande)) {
-            // set the owning side to null (unless already changed)
-            if ($commande->getArtId() === $this) {
-                $commande->setArtId(null);
-            }
-        }
+        $this->artiste = $artiste;
 
         return $this;
     }

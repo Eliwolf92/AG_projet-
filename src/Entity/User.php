@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -30,6 +32,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $username = null;
+
+    /**
+     * @var Collection<int, Art>
+     */
+    #[ORM\OneToMany(targetEntity: Art::class, mappedBy: 'artiste')]
+    private Collection $arts;
+
+    public function __construct()
+    {
+        $this->arts = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -102,5 +118,47 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): static
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Art>
+     */
+    public function getArts(): Collection
+    {
+        return $this->arts;
+    }
+
+    public function addArt(Art $art): static
+    {
+        if (!$this->arts->contains($art)) {
+            $this->arts->add($art);
+            $art->setArtiste($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArt(Art $art): static
+    {
+        if ($this->arts->removeElement($art)) {
+            // set the owning side to null (unless already changed)
+            if ($art->getArtiste() === $this) {
+                $art->setArtiste(null);
+            }
+        }
+
+        return $this;
     }
 }

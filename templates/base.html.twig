@@ -14,9 +14,18 @@
     <body>
     <header>
         <h1 id="Title_website">Les petits artistes de Garches</h1>
-        <button id="Sign_Up"><a href="{{ path('app_login')}}"></a></button>
+{% if app.user %}
+    <!-- Utilisateur connecté -->
+    <a href="{{'app_profil'}}" id="Sign_Up">{{ app.user.username }}</a>
+{% else %}
+    <!-- Utilisateur non connecté -->
+    <button id="Sign_Up">
+        <a href="{{ path('app_login') }}">Connexion</a>
+    </button>
+{% endif %}
+
         <ul id="nav">
-            <li><a href="{{ path('app_main_page')}}">Accueil</a></li>
+            <li><a href="{{path('app_index')}}">Accueil</a></li>
             <li><a href="">Catégories</a></li>
             <li><a href="">Contact</a></li>
             <li><a href="">À propos</a></li>
@@ -26,7 +35,7 @@
     </header>
 
             <main>
-                {% block content %}
+                {% block body %}
                 {% endblock %}
             </main>
 

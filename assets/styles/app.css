@@ -60,7 +60,7 @@ div, h1 ,h2 ,h3 ,ul ,li ,p ,a ,main ,section ,header ,footer,body{
 
  #Sign_Up a {
   text-decoration: none;
-  color: #ffffff;
+  color: #000000;
   border-bottom: 2px solid transparent;
   transition: border-color 0.5s ease-in-out, color 0.3s ease-in-out;
  }
