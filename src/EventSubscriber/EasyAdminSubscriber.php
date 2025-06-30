@@ -40,39 +40,39 @@ class EasyAdminSubscriber implements EventSubscriberInterface
             }
         } else {
             $dbUser = $this->em->createQueryBuilder()
-                    ->select('u')
-                    ->from(User::class, 'u')
-                    ->where('u.id = :id')
-                    ->setParameter('id', $entity->getId())
-                    ->getQuery()
-                    ->getScalarResult();
-                if ($dbUser[0]['u_password'] !== null) {
-                    $entity->setPassword(trim($dbUser[0]['u_password']));
-                }
+                ->select('u')
+                ->from(User::class, 'u')
+                ->where('u.id = :id')
+                ->setParameter('id', $entity->getId())
+                ->getQuery()
+                ->getOneOrNullResult();
+
         }
     }
 
-    public function hashPasswordUpdate(BeforeEntityUpdatedEvent $event)
-    {
-        $entity = $event->getEntityInstance();
+public function hashPasswordUpdate(BeforeEntityUpdatedEvent $event)
+{
+    $entity = $event->getEntityInstance();
 
-        if ($entity instanceof User) {
-            if ($entity->getPassword() !== null) {
-                $this->hashPassword($entity, $entity->getPassword());
-            } else {
-                $dbUser = $this->em->createQueryBuilder()
-                    ->select('u')
-                    ->from(User::class, 'u')
-                    ->where('u.id = :id')
-                    ->setParameter('id', $entity->getId())
-                    ->getQuery()
-                    ->getScalarResult();
-                if ($dbUser[0]['u_password'] !== null) {
-                    $entity->setPassword(trim($dbUser[0]['u_password']));
-                }
+    if ($entity instanceof User) {
+        if ($entity->getPassword() !== null) {
+            $this->hashPassword($entity, $entity->getPassword());
+        } else {
+            $dbUser = $this->em->createQueryBuilder()
+                ->select('u')
+                ->from(User::class, 'u')
+                ->where('u.id = :id')
+                ->setParameter('id', $entity->getId())
+                ->getQuery()
+                ->getOneOrNullResult();
+
+            if ($dbUser && $dbUser->getPassword() !== null) {
+                $entity->setPassword(trim($dbUser->getPassword()));
             }
         }
     }
+}
+
 
     private function hashPassword(&$user, $plaintextPassword)
     {

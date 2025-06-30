@@ -13,26 +13,37 @@
     </head>
     <body>
     <header>
-        <h1 id="Title_website">Les petits artistes de Garches</h1>
-{% if app.user %}
-    <!-- Utilisateur connecté -->
-    <a href="{{'app_profil'}}" id="Sign_Up">{{ app.user.username }}</a>
-{% else %}
-    <!-- Utilisateur non connecté -->
-    <button id="Sign_Up">
-        <a href="{{ path('app_login') }}">Connexion</a>
-    </button>
-{% endif %}
+        <h1 id="Title_website">Les Artistes de Garches</h1>
+            {% if app.user %}
+            <div class="text-end">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('admin') }}" id="Sign_Up" class="d-block fw-bold">{{ app.user.username }}</a>
+                {% elseif is_granted('ROLE_ARTISTE') %}
+                    <a href="{{ path('app_artiste_page', {'id': app.user.id}) }}" id="Sign_Up" class="d-block fw-bold">{{ app.user.username }}</a>
+                {% else %}
+                    <a href="{{ path('app_profil') }}" id="Sign_Up" class="d-block fw-bold">{{ app.user.username }}</a>
+                {% endif %}
 
+                <form method="post" action="{{ path('app_logout') }}" class="mt-1">
+                    <button class="btn btn-outline-danger btn-sm">Se déconnecter</button>
+                </form>
+            </div>
+        {% else %}
+            <button id="Sign_Up" class="btn btn-primary">
+                <a href="{{ path('app_login') }}" class="text-white text-decoration-none">Connexion</a>
+            </button>
+        {% endif %}
+
+    </header>
+    <div class="hero-section mb-5">
         <ul id="nav">
             <li><a href="{{path('app_index')}}">Accueil</a></li>
             <li><a href="">Catégories</a></li>
             <li><a href="">Contact</a></li>
             <li><a href="">À propos</a></li>
         </ul>
+    </div>
 
-
-    </header>
 
             <main>
                 {% block body %}
@@ -40,7 +51,7 @@
             </main>
 
             <footer>
-                <p>&copy; 2023 Les petits artistes de Garches</p>
+                <p>&copy; 2023 Les Artistes de Garches</p>
             </footer>
     
     </body>

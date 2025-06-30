@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page de l'artiste{% endblock %}
+
+{% block body %}
+<div class="container text-center mt-5">
+    <h1 class="mb-4">{{ artiste.username }}</h1>
+
+    <div class="bg-primary text-white p-4 rounded">
+        <h2>Œuvres</h2>
+        <div class="row">
+            {% for art in arts %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        {% if art.img %}
+                            <a href="{{ path('art_edit', {id : art.id}) }}"><button>edit</button></a>
+                            <img src="{{ asset('uploads/art/' ~ art.img) }}" class="card-img-top" alt="{{ art.name }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ art.name }}</h5>
+                            {% if art.description %}
+                                <p class="card-text">{{ art.description }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <p class="text-white">Aucune œuvre trouvée pour cet artiste.</p>
+            {% endfor %}
+            <a href="{{ path('art_add')}}"><button class="btn btn-primary rounded-circle" style="width: 150px; height: 150px; font-size: 50px;">+</button></a>
+        </div>
+    </div>
+</div>
+{% endblock %}

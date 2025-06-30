@@ -6,11 +6,13 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -42,15 +44,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Art::class, mappedBy: 'artiste')]
     private Collection $arts;
 
+    /**
+     * @var Collection<int, ServiceRequest>
+     */
+    #[ORM\OneToMany(targetEntity: ServiceRequest::class, mappedBy: 'user')]
+    private Collection $serviceRequests;
+
     public function __construct()
     {
         $this->arts = new ArrayCollection();
+        $this->serviceRequests = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
     }
+
+
 
     public function getEmail(): ?string
     {
@@ -132,6 +143,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+        public function __toString(): string
+{
+    return $this->getUsername(); // ou getNom() si tu as un champ "nom"
+}
+
     /**
      * @return Collection<int, Art>
      */
@@ -156,6 +172,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($art->getArtiste() === $this) {
                 $art->setArtiste(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ServiceRequest>
+     */
+    public function getServiceRequests(): Collection
+    {
+        return $this->serviceRequests;
+    }
+
+    public function addServiceRequest(ServiceRequest $serviceRequest): static
+    {
+        if (!$this->serviceRequests->contains($serviceRequest)) {
+            $this->serviceRequests->add($serviceRequest);
+            $serviceRequest->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeServiceRequest(ServiceRequest $serviceRequest): static
+    {
+        if ($this->serviceRequests->removeElement($serviceRequest)) {
+            // set the owning side to null (unless already changed)
+            if ($serviceRequest->getUser() === $this) {
+                $serviceRequest->setUser(null);
             }
         }
 

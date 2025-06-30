@@ -4,12 +4,15 @@ namespace App\Controller;
 
 use App\Entity\Art;
 use App\Form\ArtForm;
+use App\Form\AddArtForm;
+use App\Form\EditArtForm;
 use App\Repository\ArtRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/art')]
 final class ArtController extends AbstractController
@@ -22,60 +25,55 @@ final class ArtController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_art_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/artiste/add', name: 'art_add')]
+    public function add(Request $request, EntityManagerInterface $em, Security $security)
     {
+        $this->denyAccessUnlessGranted('ROLE_ARTISTE');
+
         $art = new Art();
-        $form = $this->createForm(ArtForm::class, $art);
+        $form = $this->createForm(AddArtForm::class, $art);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($art);
-            $entityManager->flush();
+            $user = $security->getUser();
+            $art->setArtiste($user);
 
-            return $this->redirectToRoute('app_art_index', [], Response::HTTP_SEE_OTHER);
+            $em->persist($art);
+            $em->flush();
+
+            return $this->redirectToRoute('app_index'); // ou une autre route après ajout
         }
 
-        return $this->render('art/new.html.twig', [
-            'art' => $art,
-            'form' => $form,
+        return $this->render('art/add.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 
-    #[Route('/{id}', name: 'app_art_show', methods: ['GET'])]
-    public function show(Art $art): Response
-    {
-        return $this->render('art/show.html.twig', [
-            'art' => $art,
-        ]);
+
+    #[Route('/artiste/edit/{id}', name: 'art_edit')]
+    public function edit(Art $art, Request $request, EntityManagerInterface $em, Security $security) : Response{
+         $this->denyAccessUnlessGranted('ROLE_ARTISTE');
+
+          // Sécurité : l'utilisateur ne peut modifier QUE ses œuvres
+    $user = $security->getUser();
+    if ($art->getArtiste() !== $user) {
+        throw $this->createAccessDeniedException('Vous ne pouvez modifier que vos propres œuvres.');
     }
 
-    #[Route('/{id}/edit', name: 'app_art_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Art $art, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(ArtForm::class, $art);
-        $form->handleRequest($request);
+    $form = $this->createForm(EditArtForm::class, $art);
+    $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+    if ($form->isSubmitted() && $form->isValid()) {
+        $em->flush();
 
-            return $this->redirectToRoute('app_art_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('art/edit.html.twig', [
-            'art' => $art,
-            'form' => $form,
-        ]);
+        return $this->redirectToRoute('home'); // ou autre route
     }
 
-    #[Route('/{id}', name: 'app_art_delete', methods: ['POST'])]
-    public function delete(Request $request, Art $art, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$art->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($art);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('app_art_index', [], Response::HTTP_SEE_OTHER);
+    return $this->render('art/edit.html.twig', [
+        'form' => $form->createView(),
+        'art' => $art
+    ]);
     }
+
+    
 }

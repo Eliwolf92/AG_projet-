@@ -1,176 +1,24 @@
 {% extends 'base.html.twig' %}
 
 
-
 {% block body %}
-    <main>
-        <section>    
-            <h1>Dessins</h1>
-            <div class="slidershow-btn">
-                <button class="prev" onclick="plusSlides(-1)">&#10094;</button>
-                <button class="next" onclick="plusSlides(1)">&#10095;</button>
+
+    {% for category, arts in artsByCategory %}
+        <div class="my-5 px-4" style="margin-top:50px;">
+            <h2 class="mb-3">{{ category }}</h2>
+            <div class="d-flex overflow:hidden" style="margin: 20px; padding: 10px; gap: 20px; background-color:#288adb">
+                {% for art in arts %}
+                    <a href="" class="text-decoration-none text-dark">
+                        <div class="card" style="min-width: 100px; max-width: 400px; height: 400px; overflow: hidden;">
+                            <img src="{{ asset('uploads/art/' ~ art.img) }}" class="w-100 h-75 object-fit-cover" alt="{{ art.name }}">
+                            <div class="card-body p-1 d-flex justify-content-between" style="font-size: 0.75rem;">
+                                <span>{{ art.name }}</span>
+                                <span>{{ art.artiste.username }}</span>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
             </div>
-            
-            <div class="slidershow">
-
-                <div class="projets">
-                    <img src="" alt="">
-                    <h3>Nom de l'artiste1</h3>
-                    <p>Nom du projet1</p>
-                    <div class="description-hiden">
-                        <p>description du projet Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum voluptatem quae at, consequuntur accusamus aut nisi? Nesciunt odit minima delectus.</p>
-                    </div>
-                </div>
-
-                <div class="projets">
-                    <img src="" alt="">
-                    <h3>Nom de l'artiste2</h3>
-                    <p>Nom du projet2</p>
-                    <div class="description-hiden">
-                        <p>description du projet Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum voluptatem quae at, consequuntur accusamus aut nisi? Nesciunt odit minima delectus.</p>
-                    </div>
-                </div>
-
-                <div class="projets">
-                    <img src="" alt="">
-                    <h3>Nom de l'artiste3</h3>
-                    <p>Nom du projet3</p>
-                    <div class="description-hiden">
-                        <p>description du projet Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum voluptatem quae at, consequuntur accusamus aut nisi? Nesciunt odit minima delectus.</p>
-                    </div>
-                </div>
-
-                <div class="projets">
-                    <img src="" alt="">
-                    <h3>Nom de l'artiste4</h3>
-                    <p>Nom du projet4</p>
-                    <div class="description-hiden">
-                        <p>description du projet Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum voluptatem quae at, consequuntur accusamus aut nisi? Nesciunt odit minima delectus.</p>
-                    </div>
-                </div>
-
-                <div class="projets">
-                    <img src="" alt="">
-                    <h3>Nom de l'artiste5</h3>
-                    <p>Nom du projet5</p>
-                    <div class="description-hiden">
-                        <p>description du projet Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum voluptatem quae at, consequuntur accusamus aut nisi? Nesciunt odit minima delectus.</p>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-        <section>    
-            <h1>Tatouage</h1>
-            <div class="slidershow-btn">
-                <button class="prev" onclick="plusSlides(-1)">&#10094;</button>
-                <button class="next" onclick="plusSlides(1)">&#10095;</button>
-            </div>
-
-            <div class="slidershow">
-
-                <div class="projets">
-                    <img src="" alt="">
-                    <h3>Nom de l'artiste1</h3>
-                    <p>Nom du projet1</p>
-                    <div class="description-hiden">
-                        <p>description du projet Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum voluptatem quae at, consequuntur accusamus aut nisi? Nesciunt odit minima delectus.</p>
-                    </div>
-                </div>
-
-                <div class="projets">
-                    <img src="" alt="">
-                    <h3>Nom de l'artiste2</h3>
-                    <p>Nom du projet2</p>
-                    <div class="description-hiden">
-                        <p>description du projet Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum voluptatem quae at, consequuntur accusamus aut nisi? Nesciunt odit minima delectus.</p>
-                    </div>
-                </div>
-
-                <div class="projets">
-                    <img src="" alt="">
-                    <h3>Nom de l'artiste3</h3>
-                    <p>Nom du projet3</p>
-                    <div class="description-hiden">
-                        <p>description du projet Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum voluptatem quae at, consequuntur accusamus aut nisi? Nesciunt odit minima delectus.</p>
-                    </div>
-                </div>
-
-                <div class="projets">
-                    <img src="" alt="">
-                    <h3>Nom de l'artiste4</h3>
-                    <p>Nom du projet4</p>
-                    <div class="description-hiden">
-                        <p>description du projet Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum voluptatem quae at, consequuntur accusamus aut nisi? Nesciunt odit minima delectus.</p>
-                    </div>
-                </div>
-
-                <div class="projets">
-                    <img src="" alt="">
-                    <h3>Nom de l'artiste5</h3>
-                    <p>Nom du projet5</p>
-                    <div class="description-hiden">
-                        <p>description du projet Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum voluptatem quae at, consequuntur accusamus aut nisi? Nesciunt odit minima delectus.</p>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-        <section>    
-            <h1>Sculpture</h1>
-            <div class="slidershow-btn">
-                <button class="prev" onclick="plusSlides(-1)">&#10094;</button>
-                <button class="next" onclick="plusSlides(1)">&#10095;</button>
-            </div>
-
-            <div class="slidershow">
-
-                <div class="projets">
-                    <img src="" alt="">
-                    <h3>Nom de l'artiste1</h3>
-                    <p>Nom du projet1</p>
-                    <div class="description-hiden">
-                        <p>description du projet Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum voluptatem quae at, consequuntur accusamus aut nisi? Nesciunt odit minima delectus.</p>
-                    </div>
-                </div>
-
-                <div class="projets">
-                    <img src="" alt="">
-                    <h3>Nom de l'artiste2</h3>
-                    <p>Nom du projet2</p>
-                    <div class="description-hiden">
-                        <p>description du projet Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum voluptatem quae at, consequuntur accusamus aut nisi? Nesciunt odit minima delectus.</p>
-                    </div>
-                </div>
-
-                <div class="projets">
-                    <img src="" alt="">
-                    <h3>Nom de l'artiste3</h3>
-                    <p>Nom du projet3</p>
-                    <div class="description-hiden">
-                        <p>description du projet Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum voluptatem quae at, consequuntur accusamus aut nisi? Nesciunt odit minima delectus.</p>
-                    </div>
-                </div>
-
-                <div class="projets">
-                    <img src="" alt="">
-                    <h3>Nom de l'artiste4</h3>
-                    <p>Nom du projet4</p>
-                    <div class="description-hiden">
-                        <p>description du projet Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum voluptatem quae at, consequuntur accusamus aut nisi? Nesciunt odit minima delectus.</p>
-                    </div>
-                </div>
-
-                <div class="projets">
-                    <img src="" alt="">
-                    <h3>Nom de l'artiste5</h3>
-                    <p>Nom du projet5</p>
-                    <div class="description-hiden">
-                        <p>description du projet Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum voluptatem quae at, consequuntur accusamus aut nisi? Nesciunt odit minima delectus.</p>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-    </main>
+        </div>
+    {% endfor %}
 {% endblock %}
