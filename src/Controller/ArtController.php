@@ -66,7 +66,7 @@ final class ArtController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
         $em->flush();
 
-        return $this->redirectToRoute('home'); // ou autre route
+        return $this->redirectToRoute('app_index'); // ou autre route
     }
 
     return $this->render('art/edit.html.twig', [

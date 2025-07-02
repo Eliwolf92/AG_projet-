@@ -75,10 +75,14 @@ div, h1 ,h2 ,h3 ,ul ,li ,p ,a ,main ,section ,header ,footer,body{
 }
 
 .hero-section {
-    background-image: url('{{ public("uploads/bg-up.jpg") }}');
+    background-image: url('/uploads/bg-up.jpg'); /* Utilise chemin relatif direct */
     background-size: cover;
-    background-position: center;
-    position: absolute;
-    height: 400px;
+    background-position: start;
+    height: 290px;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 20px;
+    color: white;
 }

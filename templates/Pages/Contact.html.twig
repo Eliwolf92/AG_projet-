@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contacter l'artiste{% endblock %}
+
+{% block body %}
+<div class="container d-flex justify-content-center align-items-center" style="margin-top:50px;">
+    <div class="card shadow" style="width: 850px; height: auto; background-color: #141414; color: white;">
+        <div class="card-body">
+            <h2 class="text-center mb-4 mt-3">Je fais ma demande à {{ artiste.username }}</h2>
+
+            {{ form_start(requestForm, {'attr': {'class': 'mx-auto', 'style': 'width: auto;'}}) }}
+                <div class="d-flex justify-content-center">
+            {{ form_widget(requestForm.Message, {
+            'attr': {
+            'style': 'width: 100%; max-width: 700px; height: 400px; resize: none;',
+            'class': 'form-control rounded'
+        }
+    }) }}
+</div>
+                <div class="text-center">
+                    <button class="btn btn-primary mt-3" type="submit">Envoyer ma demande</button>
+                </div>
+            {{ form_end(requestForm) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

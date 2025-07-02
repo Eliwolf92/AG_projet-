@@ -36,8 +36,6 @@ class Art
     #[ORM\Column(length: 255)]
     private ?string $categories = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
-    private ?\DateTimeImmutable $updatedAt = null;
 
     public function getId(): ?int
     {
@@ -73,24 +71,6 @@ class Art
         return $this->imageFile;
     }
 
-    public function setImageFile(?File $imageFile): void
-    {
-        $this->imageFile = $imageFile;
-
-        if ($imageFile !== null) {
-            $this->updatedAt = new \DateTimeImmutable();
-        }
-    }
-
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): void
-    {
-        $this->updatedAt = $updatedAt;
-    }
 
     public function getDescription(): ?string
     {

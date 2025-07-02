@@ -8,6 +8,9 @@
 
     <div class="bg-primary text-white p-4 rounded">
         <h2>Œuvres</h2>
+<a href="{{ path('app_artiste_demande', { id: app.user.id }) }}" class="btn btn-primary mb-3">
+    📥 Voir mes demandes reçues
+</a>
         <div class="row">
             {% for art in arts %}
                 <div class="col-md-4 mb-4">

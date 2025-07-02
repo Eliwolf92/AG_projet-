@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes demandes reçues{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h2 class="mb-4">Demandes reçues</h2>
+
+    {% if demandes is not empty %}
+        {% for demande in demandes %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">De : {{ demande.demandeurs.username }}</h5>
+
+                    <p class="card-text">
+                        <strong>Message :</strong><br>
+                        {{ demande.message }}
+                    </p>
+
+                    {% if demande.reponse %}
+                        <p class="mt-3 mb-0"><strong>Réponse :</strong></p>
+                        <div class="border p-2 rounded bg-light">
+                            {{ demande.reponse }}
+                        </div>
+                    {% else %}
+                        <a href="{{ path('demande_repondre', { id: demande.id }) }}" class="btn btn-sm btn-primary mt-3">
+                            Répondre
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-info">
+            Vous n’avez reçu aucune demande.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mt-5">
+        <a href="{{ path('app_index') }}" class="btn btn-secondary mb-4">← Retour</a>
+
+        <div class="card mx-auto" style="max-width: 700px;">
+            <img src="{{ asset('uploads/art/' ~ art.img) }}" class="card-img-top" alt="{{ art.name }}">
+
+            <div class="card-body">
+                <h2 class="card-title">{{ art.name }}</h2>
+                <h5 class="card-subtitle mb-2 text-muted">Par {{ art.artiste.username }}</h5>
+
+                {% if art.description %}
+                    <p class="card-text mt-3">{{ art.description }}</p>
+                {% else %}
+                    <p class="text-muted mt-3">Aucune description disponible pour cette œuvre.</p>
+                {% endif %}
+                {% if is_granted('ROLE_USER')%}
+                <a href="{{ path('app_contact',{ id: art.id }) }}" class="btn btn-secondary mb-2">Contacter l'artiste !</a>
+                {% else %}
+                <a href="{{ path('app_login') }}" class="btn btn-secondary mb-2">Contacter l'artiste !</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

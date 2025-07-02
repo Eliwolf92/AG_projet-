@@ -1,9 +1,28 @@
 
 {% block body %}
     <h1>Modifier l’œuvre : {{ art.name }}</h1>
+{{ form_start(form) }}
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
-    {{ form_end(form) }}
+    <div class="mb-3">
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name) }}
+        {{ form_errors(form.name) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description) }}
+        {{ form_errors(form.description) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.categories) }}
+        {{ form_widget(form.categories) }}
+        {{ form_errors(form.categories) }}
+    </div>
+
+    <button class="btn btn-primary">Modifier</button>
+
+{{ form_end(form) }}
+
 {% endblock %}

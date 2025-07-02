@@ -2,12 +2,15 @@
 
 namespace App\Controller;
 
-use Dom\Entity;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Art;
+use App\Entity\Demandes;
+use App\Form\RequestForm;
+use App\Repository\ArtRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use App\Repository\ArtRepository;
-use App\Repository\CategoriesRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class IndexController extends AbstractController
 {   
@@ -26,6 +29,59 @@ final class IndexController extends AbstractController
 
     return $this->render('Pages/Main.html.twig', [
         'artsByCategory' => $artsByCategory,
+    ]);
+}
+
+    #[Route('/index/art_show/{id}', name: 'app_art_show')]
+    public function art_show(int $id ,ArtRepository $artRepository): Response
+{
+         $art = $artRepository->find($id);
+
+             if (!$art) {
+        throw $this->createNotFoundException('Œuvre non trouvée.');
+    }
+
+         return $this->render('Pages/ArtShow.html.twig', [
+            'art' => $art,
+         ]);
+
+
+}
+
+#[Route('/contact/oeuvre/{id}', name: 'app_contact')]
+public function contact(int $id,Request $request,EntityManagerInterface $em
+): Response 
+    {
+    $art = $em->getRepository(Art::class)->find($id);
+
+    if (!$art) {
+        throw $this->createNotFoundException("Œuvre non trouvée.");
+    }
+
+    $artiste = $art->getArtiste(); // Ce champ doit être une relation ManyToOne vers User
+    if (!$artiste) {
+        throw $this->createNotFoundException("Artiste non associé à cette œuvre.");
+    }
+
+    $demande = new Demandes();
+    $demande->setDemandeurs($this->getUser());
+    $demande->setArtiste($artiste);
+
+    $form = $this->createForm(RequestForm::class, $demande);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $em->persist($demande);
+        $em->flush();
+
+        $this->addFlash('success', 'Votre message a bien été envoyé.');
+        return $this->redirectToRoute('app_index');
+    }
+
+    return $this->render('Pages/Contact.html.twig', [
+        'requestForm' => $form->createView(),
+        'artiste' => $artiste,
+        'oeuvre' => $art
     ]);
 }
 }

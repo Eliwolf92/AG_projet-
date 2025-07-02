@@ -1,24 +1,47 @@
 {% extends 'base.html.twig' %}
 
+{% block meta %}
+<meta name="description" content="Découvrez Les artistes locaux de la ville de Garches ! 
+                                  des peintre, sculpteur,tatoueur et bien d'autre propose 
+                                  leurs services artistique !">
+{% endblock %}
 
 {% block body %}
-
     {% for category, arts in artsByCategory %}
-        <div class="my-5 px-4" style="margin-top:50px;">
-            <h2 class="mb-3">{{ category }}</h2>
-            <div class="d-flex overflow:hidden" style="margin: 20px; padding: 10px; gap: 20px; background-color:#288adb">
-                {% for art in arts %}
-                    <a href="" class="text-decoration-none text-dark">
-                        <div class="card" style="min-width: 100px; max-width: 400px; height: 400px; overflow: hidden;">
-                            <img src="{{ asset('uploads/art/' ~ art.img) }}" class="w-100 h-75 object-fit-cover" alt="{{ art.name }}">
-                            <div class="card-body p-1 d-flex justify-content-between" style="font-size: 0.75rem;">
-                                <span>{{ art.name }}</span>
-                                <span>{{ art.artiste.username }}</span>
+        <div class="my-5 px-4">
+            <div class="position-relative bg-black p-3 shadow rounded">
+
+
+                <div class="d-flex justify-content-between align-items-center mb-3 text-white">
+                    <h2 class="m-0">{{ category }}</h2>
+                    <div>
+                        <button class="btn btn-sm btn-light me-1 carousel-prev" data-target="carousel-{{ loop.index }}">
+                            &#x2039;
+                        </button>
+                        <button class="btn btn-sm btn-light carousel-next" data-target="carousel-{{ loop.index }}">
+                            &#x203A;
+                        </button>
+                    </div>
+                </div>
+
+
+                <div id="carousel-{{ loop.index }}" class="d-flex overflow-x-hidden gap-3" style="scroll-behavior: smooth;">
+                    {% for art in arts %}
+                        <a href="{{ path('app_art_show', {'id': art.id}) }}" class="text-decoration-none text-white">
+                            <div class="card" style="min-width: 300px; max-width: 300px; height: 400px; overflow: hidden;">
+                                <img src="{{ asset('uploads/art/' ~ art.img) }}" class="w-100 h-75 object-fit-cover" alt="{{ art.name }}">
+                               <div class="card-body p-1 d-flex justify-content-between text-dark" style="font-size: 0.75rem;">
+                                    <span>{{ art.name }}</span>
+                                    <span>{{ art.artiste.username }}</span>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                {% endfor %}
+                        </a>
+                    {% endfor %}
+                </div>
+
             </div>
         </div>
     {% endfor %}
+
+    <script src="{{ asset('js/carrousel.js') }}"></script>
 {% endblock %}

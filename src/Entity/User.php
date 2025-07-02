@@ -50,10 +50,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: ServiceRequest::class, mappedBy: 'user')]
     private Collection $serviceRequests;
 
+    /**
+     * @var Collection<int, Demandes>
+     */
+    #[ORM\OneToMany(targetEntity: Demandes::class, mappedBy: 'demandeurs')]
+    private Collection $demandes;
+
     public function __construct()
     {
         $this->arts = new ArrayCollection();
         $this->serviceRequests = new ArrayCollection();
+        $this->demandes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -207,4 +214,37 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Demandes>
+     */
+    public function getDemandes(): Collection
+    {
+        return $this->demandes;
+    }
+
+    public function addDemande(Demandes $demande): static
+    {
+        if (!$this->demandes->contains($demande)) {
+            $this->demandes->add($demande);
+            $demande->setDemandeurs($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDemande(Demandes $demande): static
+    {
+        if ($this->demandes->removeElement($demande)) {
+            // set the owning side to null (unless already changed)
+            if ($demande->getDemandeurs() === $this) {
+                $demande->setDemandeurs(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
 }
