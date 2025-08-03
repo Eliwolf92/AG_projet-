@@ -1,0 +1,24 @@
+FROM php:8.2-cli
+
+# Installer les extensions nécessaires
+RUN apt-get update && apt-get install -y \
+    git unzip zip curl libicu-dev libzip-dev libpq-dev libonig-dev \
+    && docker-php-ext-install intl pdo pdo_mysql zip
+
+# Installer Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Créer un répertoire pour l'application
+WORKDIR /var/www/html
+
+# Copier les fichiers du projet
+COPY . .
+
+# Installer les dépendances PHP
+RUN composer install --no-dev --optimize-autoloader
+
+# Exposer le port (pour le serveur interne)
+EXPOSE 8000
+
+# Commande pour lancer le serveur Symfony
+CMD php -S 0.0.0.0:8000 -t public
