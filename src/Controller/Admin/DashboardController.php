@@ -30,6 +30,8 @@ class DashboardController extends AbstractDashboardController
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-users', 'App\Entity\User');
         yield MenuItem::linkToCrud('Art', 'fas fa-palette', 'App\Entity\Art');
+        yield MenuItem::linkToCrud('Demande', 'fas fa-palette','App\Entity\Demandes');
         yield MenuItem::linkToLogout('Deconnexion', 'fas fa-deco', 'App\Entity\Index');
+        yield MenuItem::linkToRoute('Accueil','fas fa-route','app_index');
     }
 }

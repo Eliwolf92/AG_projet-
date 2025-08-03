@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un évènement{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+    <a href="{{ path('app_index', {'id': user.id})}}" class="btn btn-warning mb-2 mt-2">Retour</a>
+        <h1 class="text-light">Créer un nouvel évènement</h1>
+
+        {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}}) }}
+
+            <label class=" text-light mb-2 mt-2">{{form_label(form.title)}}</label>
+            {{form_widget(form.title)}}
+            {{form_errors(form.title)}}
+
+            <label class=" text-light mb-2 mt-2">{{form_label(form.description)}}</label>
+            {{form_widget(form.description)}}
+            {{form_errors(form.description)}}
+
+            <label class=" text-light mb-2 mt-2">{{form_label(form.date)}}</label>
+            {{form_widget(form.date)}}
+            {{form_errors(form.date)}}
+
+            <label class=" text-light mb-2 mt-2">{{form_label(form.lieu)}}</label>
+            {{form_widget(form.lieu)}}
+            {{form_errors(form.lieu)}}
+
+            <label class=" text-light mb-2 mt-2">{{form_label(form.img)}}</label>
+            {{form_widget(form.img)}}
+            {{form_errors(form.img)}}
+
+            {{form_widget(form.save)}}
+            {# {{ form_row(form.save) }} #}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

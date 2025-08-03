@@ -25,8 +25,8 @@ final class ArtController extends AbstractController
         ]);
     }
 
-    #[Route('/artiste/add', name: 'art_add')]
-    public function add(Request $request, EntityManagerInterface $em, Security $security)
+    #[Route('/artiste/new', name: 'art_add')]
+    public function add(Request $request, EntityManagerInterface $em, Security $security,)
     {
         $this->denyAccessUnlessGranted('ROLE_ARTISTE');
 
@@ -44,8 +44,11 @@ final class ArtController extends AbstractController
             return $this->redirectToRoute('app_index'); // ou une autre route après ajout
         }
 
+        $user = $security->getUser();
+
         return $this->render('art/add.html.twig', [
             'form' => $form->createView(),
+            'user' => $user,
         ]);
     }
 
@@ -71,7 +74,8 @@ final class ArtController extends AbstractController
 
     return $this->render('art/edit.html.twig', [
         'form' => $form->createView(),
-        'art' => $art
+        'art' => $art,
+        'user' => $user
     ]);
     }
 

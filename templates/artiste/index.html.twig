@@ -4,13 +4,14 @@
 
 {% block body %}
 <div class="container text-center mt-5">
-    <h1 class="mb-4">{{ artiste.username }}</h1>
+    <h1 class="mb-4">Bonjour {{ artiste.username }}</h1>
 
-    <div class="bg-primary text-white p-4 rounded">
-        <h2>Œuvres</h2>
-<a href="{{ path('app_artiste_demande', { id: app.user.id }) }}" class="btn btn-primary mb-3">
+    <a href="{{ path('app_artiste_demande', { id: app.user.id }) }}" class="btn btn-warning mb-3">
     📥 Voir mes demandes reçues
-</a>
+    </a>
+
+    <div class="text-white p-4 rounded" style="background-color :#d9c357;">
+        <h2>Œuvres</h2>
         <div class="row">
             {% for art in arts %}
                 <div class="col-md-4 mb-4">
@@ -30,7 +31,7 @@
             {% else %}
                 <p class="text-white">Aucune œuvre trouvée pour cet artiste.</p>
             {% endfor %}
-            <a href="{{ path('art_add')}}"><button class="btn btn-primary rounded-circle" style="width: 150px; height: 150px; font-size: 50px;">+</button></a>
+            <a href="{{ path('art_add')}}"><button class="btn rounded-circle" style="height: 150px; font-size: 50px; background-color: #fff424;">Ajouter une oeuvres</button></a>
         </div>
     </div>
 </div>

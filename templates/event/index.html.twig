@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Évènements – Les Artistes de Garches{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+        <link rel="stylesheet" href="{{ asset('styles/event.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="bg-dark mx-auto text-light container-xxl py-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="m-0">Évènements !</h2>
+        <div>
+            <button class="btn btn-sm btn-light me-1 carousel-prec" data-target="carousel-event">
+                &#x2039;
+            </button>
+            <button class="btn btn-sm btn-light carousel-suiv" data-target="carousel-event">
+                &#x203A;
+            </button>
+        </div>
+    </div>
+
+    <div id="carousel-event" class="d-flex overflow-x-auto gap-3 hide-scrollbar" style="scroll-behavior: smooth; overflow-x:hidden;">
+        {% for event in events %}
+            <div class="flex-shrink-0 rounded shadow" style="
+                width: 100%;
+                height: 400px;
+                background-image: url('{{ asset('uploads/events/' ~ event.img) }}');
+                background-size: cover;
+                background-position: center;
+                position: relative;
+                color: white;
+            ">
+                <div class="card_detail">
+                    <h3 class="mb-1">{{ event.title }}</h3>
+                    <p class="mb-1">{{ event.description }}</p>
+                    <small>{{ event.date|date('d/m/Y') }}</small>
+                </div>
+            </div>
+        {% else %}
+            <p>Aucun évènement pour le moment.</p>
+        {% endfor %}
+    </div>
+
+<div class="d-flex flex-wrap justify-content-center px-4 mt-5" >
+    {% for event in events %}
+        <div class="card card_perso" style="margin-inline:10%;">
+            <img src="{{ asset('uploads/events/' ~ event.img) }}" class="card-img-top" alt="{{ event.title }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ event.title }}</h5>
+                <p class="card-text">{{ event.lieu }}</p>
+                <small class="text-muted">{{ event.date|date('d/m/Y') }}</small>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+</div>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_new_event') }}">
+            <button class="btn btn-light mb-3 w-100">Ajouter un évènement !</button>
+        </a>
+    {% endif %}
+
+<script src="{{ asset('js/carrousel.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<h1 class="text-light">Suppression du compte {{ user.username }}</h1>
+
+<a href="{{ path('app_settings', {'id': user.id} )}}" class="btn btn-warning mt-2">Retour</a>
+
+{{form_start(form)}}
+<div class="bg-light text-dark container p-2 mt-3">
+<p class="mb-2">vous etes sur le point de supprimer votre compte, vous confirmer ?</p>
+        {{ form_label(form.oldpassword) }}
+        {{ form_widget(form.oldpassword) }}
+        {{ form_errors(form.oldpassword) }}
+<button class="btn btn-warning mt-2">Supprimer</button>
+</div>
+{{form_end(form)}}
+{% endblock %}

@@ -1,0 +1,31 @@
+.hide-scrollbar {
+    -ms-overflow-style: none;  /* IE/Edge */
+    scrollbar-width: none;     /* Firefox */
+}
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;             /* Chrome, Safari */
+}
+
+.card_detail{
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: 0.3s ease-in-out;
+                
+}
+
+.card_detail:hover{
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.card_perso{
+    width: 18rem;
+    transition: 0.3s ease-in-out;
+}
+
+.card_perso:hover{
+    width: 22rem;
+}

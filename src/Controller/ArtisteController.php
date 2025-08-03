@@ -38,7 +38,8 @@ class ArtisteController extends AbstractController
     $demandes = $demandesRepository->findBy(['artiste' => $user]);
 
     return $this->render('artiste/demandes.html.twig', [
-        'demandes' => $demandes
+        'demandes' => $demandes,
+        'user' => $user
     ]);
 }
 
@@ -55,7 +56,7 @@ class ArtisteController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 $em->flush();
                 $this->addFlash('success', 'Votre réponse a bien été enregistrée.');
-                return $this->redirectToRoute('app_artiste_demande', ['id' => $this->getUser()->getId()]);
+                return $this->redirectToRoute('app_artiste_demande', ['id' => $this->getUser()->getUserIdentifier()]);
             }
 
             return $this->render('artiste/Reponse.html.twig', [

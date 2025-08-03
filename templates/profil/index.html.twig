@@ -2,6 +2,31 @@
 
 {% block title %}Profile{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+        <link rel="stylesheet" href="{{ asset('styles/profil.css') }}">
+{% endblock %}
+
 {% block body %}
 
+    <div class="py-2 bg-light">
+    <h1 class="m-3">Bonjour {{user.username}}</h1>
+        <h1>vos demandes effectuer</h1>
+        {% for demande in demandes %}
+            <div class="card text-start">
+                <div class="card-body">
+                    <h4 class="card-title">{{demande.artiste}}</h4>
+                    <p class="card-text">{{demande.message}}</p>
+                {% if demande.reponse is not empty %}
+                    <img class="warning" src="{{ asset('uploads/alerte.png')}}" alt="reponse !">
+                {% endif %}
+                </div>
+
+                
+                <a href=""><button>consulté</button></a>
+            </div>
+            
+        {% endfor %}
+        </section>
+    </div>
 {% endblock %}

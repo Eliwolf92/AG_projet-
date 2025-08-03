@@ -14,8 +14,21 @@ class AddArtForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('description')
+            ->add('name', null, [
+                'label' => 'Nommé votre oeuvre',
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Le cri...'
+                ]
+            ])
+            ->add('description', null, [
+                'label' => 'Description',
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Détaillez votre œuvre ici...',
+                    'rows' => 5
+                ],
+            ])
             ->add('categories', ChoiceType::class, [
                 'choices' => [
                 'Dessin' => 'Dessin',

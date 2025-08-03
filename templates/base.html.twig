@@ -7,36 +7,50 @@
         {% block meta %}
         {% endblock %}
         <link rel="stylesheet" href="{{ asset('assets/app.css') }}">
-
         {% block stylesheets %}{% endblock %}
         {% block javascripts %}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
-    <body>
-<header class="bg-light py-4" style="position: relative;">
-    <div class="container text-center">
+    <body class="d-flex flex-column min-vh-100">
+<header class="bg-light py-4">
+    <div class="container d-flex justify-content-between ml-5 align-items-center">
         <h1 id="Title_website" class="m-0">Les Artistes de Garches</h1>
 
+        {% set routes_a_exclure = ['app_login', 'app_profil','app_artiste_page','app_settings'] %}
+        {% set route_profil = ['app_profil','app_artiste_page'] %}
+        {% set route_log = ['app_login'] %}
+
         {% if app.user %}
-            <div style="position: absolute; top: 50%; right: 15px; transform: translateY(-50%); display: flex; flex-direction: column; align-items: flex-end;">
-                {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('admin') }}" id="Sign_Up" class="fw-bold mb-1">{{ app.user.username }}</a>
-                {% elseif is_granted('ROLE_ARTISTE') %}
-                    <a href="{{ path('app_artiste_page', {'id': app.user.id}) }}" id="Sign_Up" class="fw-bold mb-1">{{ app.user.username }}</a>
-                {% endif %}
-                
-                <form method="post" action="{{ path('app_logout') }}">
-                    <button class="btn btn-outline-danger btn-sm">Se déconnecter</button>
-                </form>
-            </div>
+            {% if app.request.attributes.get('_route') not in routes_a_exclure %}
+                <div class="d-flex flex-column align-items-end">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('admin') }}" class="fw-bold mb-1 text-decoration-none">{{ app.user.username }}</a>
+                    {% elseif is_granted('ROLE_ARTISTE') %}
+                        <a href="{{ path('app_artiste_page', {'id': app.user.id}) }}" class="fw-bold mb-1 text-decoration-none">{{ app.user.username }}</a>
+                    {% else %}
+                        <a href="{{ path('app_profil', {'id': app.user.id}) }}" class="fw-bold mb-1 text-decoration-none">{{ app.user.username }}</a>
+                    {% endif %}
+                    <a href="{{ path('app_logout') }}">
+                        <button class="btn btn-outline-danger btn-sm">Se déconnecter</button>
+                    </a>
+                </div>
+            {% endif %}
+
+            {% if app.request.attributes.get('_route') in route_profil %}
+                <a href="{{ path('app_settings', {'id': app.user.id})}}">
+                    <img src="{{ asset('uploads/settings.png')}}" alt="paramètre" class="setting-icon">
+                </a>
+            {% endif %}
         {% else %}
-            <div style="position: absolute; top: 50%; right: 15px; transform: translateY(-50%);">
+            {% if app.request.attributes.get('_route') not in routes_a_exclure %}
                 <a href="{{ path('app_login') }}" class="btn btn-outline-primary">Se connecter</a>
-            </div>
+            {% endif %}
         {% endif %}
     </div>
 </header>
+
+
 
 
 
@@ -44,17 +58,17 @@
             <nav class="container">
                 <ul id="nav" class="d-flex justify-content-center flex-wrap gap-4 list-unstyled mb-0">
                     <li><a href="{{ path('app_index') }}">Accueil</a></li>
-                    <li><a href="#">Event</a></li>
+                    <li><a href="{{ path('app_event') }}">Event</a></li>
                     <li><a href="#">À propos</a></li>
                 </ul>
             </nav>
         </section>
 
-        <main class="container my-5">
+        <main class="container my-5 flex-grow-1">
             {% block body %}{% endblock %}
         </main>
 
-        <footer class="text-center py-4 bg-light">
+        <footer class="text-center py-4 bg-dark text-light flex-bottom">
             <p class="mb-0">&copy; {{ "now"|date("Y") }} Les Artistes de Garches</p>
         </footer>
     </body>

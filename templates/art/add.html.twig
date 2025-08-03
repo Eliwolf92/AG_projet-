@@ -1,6 +1,40 @@
 {% extends 'base.html.twig' %}
 
+{% block body %}
+
+<h1 class="text-light">Ajout d'une nouvelle ouevre !</h1>
+
+<a href="{{ path('app_artiste_page', {'id': user.id} )}}" class="btn btn-warning mb-3 mt-2">Retour</a>
+
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit">Valider</button>
+
+    <div class="mb-3 text-light">
+            {{ form_label(form.name) }}
+            {{ form_widget(form.name) }}
+            {{ form_errors(form.name) }}
+    </div>
+
+    <div class="mb-3 text-light">
+            <label class="mb-2">{{ form_label(form.description) }}</label>
+            {{ form_widget(form.description) }}
+            {{ form_errors(form.description) }}
+    </div>
+
+    <div class="mb-3 text-light">
+            <label class="mb-2">{{ form_label(form.categories) }}</label>
+            {{ form_widget(form.categories) }}
+            {{ form_errors(form.categories) }}
+    </div>
+
+    <div class="mb-3 text-light">
+            <label class="mb-2">{{ form_label(form.imageFile) }}</label>
+            {{ form_widget(form.imageFile) }}
+            {{ form_errors(form.imageFile) }}
+    </div>
+
+    <button type="submit" class="btn btn-success mt-2">Valider</button>
+
+    
 {{ form_end(form) }}
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paramètres de Profile{% endblock %}
+
+{% block body %}
+
+<h2 class="text-light">Paramètres du profil de {{ user.username }}</h2>
+{% if is_granted('ROLE_ARTISTE') %}
+<a href="{{ path('app_artiste_page', {'id': user.id})}}"><button class="btn btn-warning mt-2">Retour</button></a>
+{% else %}
+<a href="{{ path('app_profil', {'id': user.id})}}"><button class="btn btn-warning mt-2">Retour</button></a>
+
+{% endif %}
+
+
+
+<ul class="bg-light p-5 list-unstyled">
+    <li><a href="{{ path('app_profil_change', {'id': user.id}) }}" class="text-dark text-decoration-none">Modifier le profil</a></li>
+    <li><a href="{{ path('app_password_change', {'id': user.id}) }}" class="text-dark text-decoration-none">Changer le mot de passe</a></li>
+    <li><a href="{{ path('app_delete_profil', { id: app.user.id }) }}" class="text-dark text-decoration-none">Supprimer son compte</a></li>
+</ul>
+
+{% endblock %}

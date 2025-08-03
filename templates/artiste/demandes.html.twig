@@ -4,7 +4,9 @@
 
 {% block body %}
 <div class="container mt-5">
-    <h2 class="mb-4">Demandes reçues</h2>
+    <h2 class="mb-4 text-light">Demandes reçues</h2>
+
+    <a href="{{ path('app_artiste_page', {'id': user.id} )}}" class="btn btn-warning mb-3">Retour</a>
 
     {% if demandes is not empty %}
         {% for demande in demandes %}
@@ -14,7 +16,7 @@
 
                     <p class="card-text">
                         <strong>Message :</strong><br>
-                        {{ demande.message }}
+                        {{ demande.message|raw }}
                     </p>
 
                     {% if demande.reponse %}
