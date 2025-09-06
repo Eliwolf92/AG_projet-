@@ -1,0 +1,114 @@
+{% extends "base.html.twig" %}
+
+{% block title %}À propos — Les Artistes de Garches{% endblock %}
+
+{% block body %}
+
+<!-- Intro -->
+<div id="block-one" class="bg-light text-dark p-3 rounded w-50 ">
+  <h1>À propos du site</h1>
+  <p>
+    Le site web <strong>Les Artistes de Garches</strong> est une plateforme en ligne
+    destinée aux artistes locaux de la ville de Garches et du département des
+    Hauts-de-Seine, ainsi qu’aux utilisateurs recherchant des prestations artistiques personnalisées.
+    Ce site a été réalisé pour la mairie de Garches et développé par Elias Kaid Maino.
+    Il est actuellement en local et construit avec le framework Symfony.
+  </p>
+</div>
+
+<!-- Carrousel texte -->
+<div id="garchesCarousel" class="carousel slide my-4" data-bs-ride="carousel" data-bs-interval="8000">
+  <!-- Indicateurs -->
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#garchesCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#garchesCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#garchesCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <button type="button" data-bs-target="#garchesCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+  </div>
+
+  <div class="carousel-inner">
+    <!-- Slide 1 : présentation -->
+    <div class="carousel-item active">
+      <div class="d-flex justify-content-center">
+        <div class="card bg-light text-dark border-0 shadow-sm" style="max-width: 960px;">
+          <div class="card-body p-4">
+            <h2 class="h4 mb-2">Garches, en quelques mots</h2>
+            <p class="mb-0">
+              Située à l’ouest de Paris, Garches est une commune des Hauts-de-Seine.
+              Elle se distingue par son cadre verdoyant et son dynamisme associatif et culturel.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2 : mairie / localisation -->
+    <div class="carousel-item">
+      <div class="d-flex justify-content-center">
+        <div class="card bg-light text-dark border-0 shadow-sm" style="max-width: 960px;">
+          <div class="card-body p-4">
+            <h2 class="h4 mb-2">Mairie & localisation</h2>
+            <p class="mb-0">
+              La mairie se situe au cœur de la ville. Retrouvez les coordonnées complètes,
+              horaires d’ouverture et démarches administratives sur le site officiel.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3 : population / atouts -->
+    <div class="carousel-item">
+      <div class="d-flex justify-content-center">
+        <div class="card bg-light text-dark border-0 shadow-sm" style="max-width: 960px;">
+          <div class="card-body p-4">
+            <h2 class="h4 mb-2">Habitants & atouts</h2>
+            <p class="mb-0">
+              Une population à taille humaine et des atouts reconnus : espaces verts,
+              vie sportive et culturelle, et proximité de pôles majeurs de l’ouest parisien.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 4 : maire -->
+    <div class="carousel-item">
+      <div class="d-flex justify-content-center">
+        <div class="card bg-light text-dark border-0 shadow-sm" style="max-width: 960px;">
+          <div class="card-body p-4">
+            <h2 class="h4 mb-2">Le/la Maire</h2>
+            <p class="mb-0">
+              La municipalité conduit les projets locaux (aménagement, culture, éducation, solidarité).
+              Pour l’équipe municipale et l’actualité, consultez le site officiel de la ville.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contrôles -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#garchesCarousel" data-bs-slide="prev" aria-label="Précédent">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#garchesCarousel" data-bs-slide="next" aria-label="Suivant">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+  </button>
+</div>
+
+<!-- Section "Découvrir Garches" -->
+<section id="decouvrir" class="my-5">
+  <div class="p-4 bg-light text-dark rounded shadow-sm">
+    <h2 class="h4 mb-3">Découvrir ce que propose Garches</h2>
+    <p class="mb-4">
+      Activités, équipements, démarches : retrouvez toutes les informations à jour,
+      les événements et services de la commune sur le site officiel.
+    </p>
+    <a class="btn btn-primary" href="https://www.ville-garches.fr/" target="_blank" rel="noopener">
+      Visiter le site officiel de Garches
+    </a>
+  </div>
+</section>
+
+{% endblock %}

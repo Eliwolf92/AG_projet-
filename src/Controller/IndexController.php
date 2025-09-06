@@ -14,8 +14,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class IndexController extends AbstractController
 {   
-    //https://127.0.0.1:8000/index
-    #[Route('/index', name: 'app_index')]
+    //https://127.0.0.1:8000/accueil
+    #[Route('/accueil', name: 'app_index')]
     public function index(ArtRepository $artRepository): Response
 {
     $arts = $artRepository->findAll();
@@ -31,6 +31,11 @@ final class IndexController extends AbstractController
         'artsByCategory' => $artsByCategory,
     ]);
 }
+
+    #[Route('/a_propos', name:'app_annexe')]
+    public function annex():Response{
+        return $this->render('Pages/Annexe.html.twig');
+    }
 
     #[Route('/index/art_show/{id}', name: 'app_art_show')]
     public function art_show(int $id ,ArtRepository $artRepository): Response

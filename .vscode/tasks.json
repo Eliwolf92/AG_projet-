@@ -1,0 +1,34 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start Symfony server (daemon)",
+      "type": "shell",
+      "command": "symfony serve -d",
+      "options": { "cwd": "${workspaceFolder}" },
+      "presentation": { "reveal": "never", "panel": "dedicated" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Warm up cache (dev)",
+      "type": "shell",
+      "command": "php bin/console cache:warmup",
+      "options": { "cwd": "${workspaceFolder}" },
+      "dependsOn": "Start Symfony server (daemon)",
+      "problemMatcher": []
+    },
+    {
+      "label": "Stop Symfony server",
+      "type": "shell",
+      "command": "symfony server:stop",
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": []
+    },
+    {
+  "label": "Open Accueil page",
+  "type": "shell",
+  "command": "start https://127.0.0.1:8000/accueil",
+  "problemMatcher": []
+    }
+  ]
+}

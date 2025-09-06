@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+    "name": "▶ Start Symfony + Warmup + Open Accueil",
+    "type": "node",
+    "request": "launch",
+    "runtimeExecutable": "cmd",
+    "args": ["/c", "symfony serve -d && php bin/console cache:warmup && start https://127.0.0.1:8000/accueil"],
+    "cwd": "${workspaceFolder}",
+    "console": "integratedTerminal"
+    },
+    {
+      "name": "⏹ Stop Symfony server",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "cmd",
+      "args": ["/c", "symfony server:stop"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    }
+  ]
+}
